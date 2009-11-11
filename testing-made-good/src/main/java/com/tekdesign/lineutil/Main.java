@@ -1,5 +1,7 @@
 package com.tekdesign.lineutil;
 
+import java.util.Map;
+
 /**
  * Run the line assembler.
  * @author martinh
@@ -7,7 +9,9 @@ package com.tekdesign.lineutil;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.print(StringPageMap.assembleLine("ManyOfMe | ",10));
+        Map<Integer, String> page = StringPageMap.assembleLine("ManyOfMe | ", 100);
+        for (Integer line : page.keySet()) {
+            System.out.printf("%d %s\n", line, page.get(line));
+        }
     }
-
 }
