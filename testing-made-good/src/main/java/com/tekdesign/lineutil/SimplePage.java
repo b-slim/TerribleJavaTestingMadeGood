@@ -9,7 +9,7 @@ import java.util.Set;
  * A simple page object for demonstrating some testing.
  * Once the page has been created, its possible to fetch maps with getMap()
  * or the keys, getKeySet() from the backing object.
- * In addition its possible to addLines() to the page.
+ * In addition its possible to appendLines() to the page.
  *
  * @author martinh
  */
@@ -49,10 +49,11 @@ public class SimplePage {
 
     /**
      * Add lines to the end of the map.
+     * 
      * @param item The item used for page content.
-     * @param numItems The number of items to use required.
+     * @param numItems The number of items appended.
      */
-    public void addLines(String item, int numItems) {
+    public void appendLines(String item, int numItems) {
         ImmutableMap.Builder<Integer, String> immutableMapBuilder = ImmutableMap.builder();
         final int numberOfLinesCreated = addExistingBackingStoreToBuilder(immutableMapBuilder);
         
