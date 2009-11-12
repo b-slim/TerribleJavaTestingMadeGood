@@ -88,6 +88,12 @@
             <!--Do not upgrade to 4.5 yet see: http://jira.springframework.org/browse/SPR-5145-->
             <version>4.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.collections</groupId>
+            <artifactId>google-collections</artifactId>
+            <version>1.0-rc3</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <reporting>
         <plugins>

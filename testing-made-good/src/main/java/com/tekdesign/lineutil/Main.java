@@ -9,7 +9,8 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-        Map<Integer, String> page = StringPageMap.assembleLine("ManyOfMe | ", 100);
+        SimplePage pageMap = SimplePage.newInstance("ManyOfMe | ", 100);
+        Map<Integer, String> page = pageMap.getMap();
         for (Integer line : page.keySet()) {
             System.out.printf("%d %s\n", line, page.get(line));
         }
