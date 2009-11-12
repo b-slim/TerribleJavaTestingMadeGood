@@ -1,28 +1,40 @@
 package com.tekdesign.lineutil;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
-import java.util.HashMap;
+import com.google.common.collect.ImmutableMap.Builder;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * A simple page object.
+ * A simple page object for demonstrating some testing.
+ * Once the page has been created, its possible to fetch maps with getMap()
+ * or the keys, getKeySet() from the backing object.
+ * In addition its possible to addLines() to the page.
  *
  * @author martinh
  */
 public class SimplePage {
 
-    final static int FIXED_PAGE_WIDTH = 42;
+    public final static int MINIMUM_PAGE_WIDTH = 42;
     private ImmutableMap<Integer, String> simplePage;
 
     private SimplePage() {
+        //Do not extend this object.
     }
 
     private SimplePage(String item, int numItems) {
         this.simplePage = assemblePage(item, numItems);
     }
 
+    /**
+     * Create a simple page populated with items that fill lines
+     * of a fixed length.  If the length is exceeded by a word,
+     * leave the word intact and fill past the line to the end of the word.
+     *
+     * @param item The item used for page content.
+     * @param numItems The number of items to use required.
+     * @return The formatted page.
+     */
     public static SimplePage newInstance(String item, int numItems) {
         return new SimplePage(item, numItems);
     }
@@ -35,30 +47,65 @@ public class SimplePage {
         return this.simplePage.keySet();
     }
 
-    public void addLines(Map<Integer, String> expectedLines) {
-        Map<Integer,String> page = Maps.newHashMap(this.simplePage);
-        page.putAll(expectedLines);
-        simplePage = ImmutableMap.copyOf(page);
+    /**
+     * Add lines to the end of the map.
+     * @param item The item used for page content.
+     * @param numItems The number of items to use required.
+     */
+    public void addLines(String item, int numItems) {
+        ImmutableMap.Builder<Integer, String> immutableMapBuilder = ImmutableMap.builder();
+        final int numberOfLinesCreated = addExistingBackingStoreToBuilder(immutableMapBuilder);
+        
+        addItemsStartAtIndex(numItems, item, numberOfLinesCreated, immutableMapBuilder);
+        this.simplePage = immutableMapBuilder.build();
+    }
+
+    private void addItemsToBuilderFromStartIndex(int numItems,
+                                                 String item,
+                                                 Builder<Integer, String> immutableMapBuilder,
+                                                 int lineNumber) {
+        StringBuilder sb = new StringBuilder(maxLineWidth(item));
+
+        for (int i = 0; i < numItems; i++) {
+            sb.append(item);
+            if (sb.length() > MINIMUM_PAGE_WIDTH) {
+                immutableMapBuilder.put(++lineNumber, sb.toString());
+                sb.delete(0, sb.length());
+            }
+        }
     }
 
     private ImmutableMap<Integer, String> assemblePage(String item, int numItems) {
 
-        final int maxLineWidth = FIXED_PAGE_WIDTH + item.length();
-
-        int lineNumber = 0;
-        StringBuilder sb = new StringBuilder(maxLineWidth);
         ImmutableMap.Builder<Integer, String> iMapBuilder = ImmutableMap.builder();
-
-        for (int i = 0; i < numItems; i++) {
-            sb.append(item);
-            if (sb.length() > FIXED_PAGE_WIDTH) {
-                iMapBuilder.put(++lineNumber, sb.toString());
-                sb.delete(0, sb.length());
-            }
-        }
+        addItemsStartAtZeroIndex(numItems, item, iMapBuilder);
 
         return iMapBuilder.build();
     }
 
+    private void addItemsStartAtZeroIndex(int numItems, String item,
+                                          Builder<Integer, String> iMapBuilder) {
+        addItemsToBuilderFromStartIndex(numItems, item, iMapBuilder, 0);
+    }
 
+    private void addItemsStartAtIndex(int numItems, String item, int startIndex,
+                                      Builder<Integer, String> iMapBuilder) {
+        addItemsToBuilderFromStartIndex(numItems, item, iMapBuilder, startIndex);
+    }
+
+    private int addExistingBackingStoreToBuilder(
+            Builder<Integer, String> iMapBuilder) {
+        int lineNumber = 0;
+
+        for (Map.Entry<Integer, String> lines : this.simplePage.entrySet()) {
+            iMapBuilder.put(++lineNumber, lines.getValue());
+
+        }
+
+        return lineNumber;
+    }
+
+    private int maxLineWidth(String item) {
+        return MINIMUM_PAGE_WIDTH + item.length();
+    }
 }
