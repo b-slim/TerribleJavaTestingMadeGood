@@ -31,7 +31,6 @@ import static org.junit.Assert.*;
 public class TerribleSimplePageTest {
 
     @Test
-    //testPageAssembley_ProducesPageContent()
     public void testPageAssembley() {
 
         String item = "-23456789-";
@@ -51,7 +50,6 @@ public class TerribleSimplePageTest {
     }
 
     @Test
-    //testPageAssembley_ProducesPageContent()
     public void testPageKeySet() {
 
         String item = "-23456789-";
@@ -71,7 +69,6 @@ public class TerribleSimplePageTest {
     }
 
     @Test
-    //testPageAssembley_ProducesPageContent()
     public void testAddLines() {
 
         String item = "-23456789-";
