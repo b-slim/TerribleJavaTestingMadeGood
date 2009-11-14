@@ -7,7 +7,9 @@
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>testing-made-good</name>
-    <description>How to refactor a terrible cut and paste test to better patterns.</description>
+    <description>This site began life as an example of how to refactor a terrible cut and paste
+    test to better patterns.  Its become a project to collect examples of bad tests
+    refactored to good tests.</description>
     <url>http://martinaharris.com/2009/11/evil-cut-paste-testing/</url>
 
     <developers>
@@ -110,7 +112,7 @@
                 <configuration>
                     <links>
                         <link>http://java.sun.com/javase/6/docs/api/</link>
-                        <link>http://google-collections.googlecode.com/svn/trunk/javadoc/index.html</link>
+                        <link>http://google-collections.googlecode.com/svn/trunk/javadoc/</link>
                     </links>
                     <maxmemory>256m</maxmemory>
                     <aggregate>true</aggregate>
