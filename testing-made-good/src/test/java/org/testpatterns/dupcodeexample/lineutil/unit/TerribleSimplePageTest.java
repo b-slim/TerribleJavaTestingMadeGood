@@ -15,9 +15,9 @@
  *  under the License.
  */
 
-package com.tekdesign.lineutil.unit;
+package org.testpatterns.dupcodeexample.lineutil.unit;
 
-import com.tekdesign.lineutil.SimplePage;
+import org.testpatterns.dupcodeexample.lineutil.SimplePage;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;

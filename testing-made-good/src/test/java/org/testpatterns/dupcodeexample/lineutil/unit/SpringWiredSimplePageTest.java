@@ -15,17 +15,19 @@
  *  under the License.
  */
 
-package com.tekdesign.lineutil.unit;
+package org.testpatterns.dupcodeexample.lineutil.unit;
 
-import com.tekdesign.fixture.PageDataFixture;
-import com.tekdesign.lineutil.SimplePage;
+import org.testpatterns.dupcodeexample.lineutil.SimplePage;
 import java.util.Map;
 import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.testpatterns.dupcodeexample.fixture.PageDataFixture;
 import static org.junit.Assert.*;
 
 /**
@@ -35,6 +37,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:springAppConfig.xml")
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 public class SpringWiredSimplePageTest {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.tekdesign.lineutil;
+package org.testpatterns.dupcodeexample.lineutil;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;

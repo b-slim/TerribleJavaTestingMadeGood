@@ -14,10 +14,10 @@
  *  limitations under the License.
  *  under the License.
  */
-package com.tekdesign.lineutil.unit;
+package org.testpatterns.dupcodeexample.lineutil.unit;
 
 import com.google.common.collect.Maps;
-import com.tekdesign.lineutil.SimplePage;
+import org.testpatterns.dupcodeexample.lineutil.SimplePage;
 import java.util.Map;
 import java.util.Set;
 import org.junit.Test;

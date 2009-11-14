@@ -14,7 +14,7 @@
  *  limitations under the License.
  *  under the License.
  */
-package com.tekdesign.fixture;
+package org.testpatterns.dupcodeexample.fixture;
 
 import com.google.common.collect.Maps;
 import java.util.Map;
