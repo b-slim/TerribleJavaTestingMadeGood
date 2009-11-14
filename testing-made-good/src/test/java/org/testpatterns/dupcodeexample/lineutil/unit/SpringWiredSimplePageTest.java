@@ -14,7 +14,6 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package org.testpatterns.dupcodeexample.lineutil.unit;
 
 import org.testpatterns.dupcodeexample.lineutil.SimplePage;
@@ -40,15 +39,20 @@ import static org.junit.Assert.*;
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 public class SpringWiredSimplePageTest {
 
+    public static final int NUMBER_OF_ITEMS_ON_PAGE_20 = 20;
+    private static final int NUMBER_LINES_PER_PAGE_4 = 4;
+    private static final int NUMBER_LINES_PER_PAGE_8 = 8;
+    private static final int NUMBER_DATA_ITEMS_PER_LINE_5 = 5;
+
     @Autowired
     PageDataFixture dataFixture;
 
     @Test
     public void testPageAssembley_GeneratesAndStoresPageContent() {
 
-        Map<Integer, String> expectedLines = dataFixture.createLineExpectations(4);
+        Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_PER_PAGE_4, NUMBER_DATA_ITEMS_PER_LINE_5);
 
-        SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), 20);
+        SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
         Map<Integer, String> actualMap = page.getMap();
 
         assertEquals(expectedLines, actualMap);
@@ -58,9 +62,9 @@ public class SpringWiredSimplePageTest {
     @Test
     public void testPageAssembley_GeneratesPageKeySet() {
 
-        Map<Integer, String> expectedLines = dataFixture.createLineExpectations(4);
+        Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_PER_PAGE_4, NUMBER_DATA_ITEMS_PER_LINE_5);
 
-        SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), 20);
+        SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
         Set<Integer> actualKeySet = page.getKeySet();
 
         assertEquals(expectedLines.keySet(), actualKeySet);
@@ -70,13 +74,13 @@ public class SpringWiredSimplePageTest {
     @Test
     public void testAppendLines_AddsLinesToEndOfPage() {
 
-        SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), 20);
+        SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
 
-        page.appendLines(dataFixture.getDataItem(), 20);
+        page.appendLines(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
 
         Map<Integer, String> actualMap = page.getMap();
 
-        Map<Integer, String> expectedLines = dataFixture.createLineExpectations(8);
+        Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_PER_PAGE_8, NUMBER_DATA_ITEMS_PER_LINE_5);
         assertEquals(expectedLines, actualMap);
 
     }

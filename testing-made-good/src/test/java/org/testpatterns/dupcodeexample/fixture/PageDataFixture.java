@@ -30,17 +30,18 @@ public class PageDataFixture {
     final String dataItem = "-23456789-";
 
     /**
-     * Create a line expectation for a SimplePage.
+     * Create a map representing a page expectation for a SimplePage.
      *
-     * @param item
-     * @param numLinesToCreate
-     * @return
      */
-    public Map<Integer, String> createLineExpectations(int numLinesToCreate) {
+    public Map<Integer, String> createPageExpectation(int numLinesToCreate,
+                                                      int numDataItemsPerLine) {
         Map<Integer, String> expectedLines = Maps.newHashMap();
 
         StringBuilder sb = new StringBuilder();
-        sb.append(dataItem).append(dataItem).append(dataItem).append(dataItem).append(dataItem);
+        for (int i = 0; i < numDataItemsPerLine; i++) {
+            sb.append(dataItem);
+        }
+
         String line = sb.toString();
         for (int i = 0; i < numLinesToCreate; i++) {
             expectedLines.put(i + 1, line);
