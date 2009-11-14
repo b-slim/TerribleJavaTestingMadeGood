@@ -25,7 +25,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test SimplePage Function
+ * Terrible Test SimplePage Function.
+ *
  * @author martinh
  */
 public class TerribleSimplePageTest {
