@@ -39,18 +39,18 @@ import static org.junit.Assert.*;
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 public class SpringWiredSimplePageTest {
 
-    public static final int NUMBER_OF_ITEMS_ON_PAGE_20 = 20;
-    private static final int NUMBER_LINES_PER_PAGE_4 = 4;
-    private static final int NUMBER_LINES_PER_PAGE_8 = 8;
-    private static final int NUMBER_DATA_ITEMS_PER_LINE_5 = 5;
+    private static final int NUMBER_OF_ITEMS_ON_PAGE_20 = 20;
+    private static final int NUMBER_LINES_ON_PAGE_4 = 4;
+    private static final int NUMBER_LINES_ON_PAGE_8 = 8;
+    private static final int NUMBER_DATA_ITEMS_IN_LINE_5 = 5;
 
     @Autowired
-    PageDataFixture dataFixture;
+    private PageDataFixture dataFixture;
 
     @Test
     public void testPageAssembley_GeneratesAndStoresPageContent() {
 
-        Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_PER_PAGE_4, NUMBER_DATA_ITEMS_PER_LINE_5);
+        Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_ON_PAGE_4, NUMBER_DATA_ITEMS_IN_LINE_5);
 
         SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
         Map<Integer, String> actualMap = page.getMap();
@@ -62,7 +62,7 @@ public class SpringWiredSimplePageTest {
     @Test
     public void testPageAssembley_GeneratesPageKeySet() {
 
-        Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_PER_PAGE_4, NUMBER_DATA_ITEMS_PER_LINE_5);
+        Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_ON_PAGE_4, NUMBER_DATA_ITEMS_IN_LINE_5);
 
         SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
         Set<Integer> actualKeySet = page.getKeySet();
@@ -74,14 +74,14 @@ public class SpringWiredSimplePageTest {
     @Test
     public void testAppendLines_AddsLinesToEndOfPage() {
 
+        Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_ON_PAGE_8, NUMBER_DATA_ITEMS_IN_LINE_5);
+
         SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
-
         page.appendLines(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
-
         Map<Integer, String> actualMap = page.getMap();
 
-        Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_PER_PAGE_8, NUMBER_DATA_ITEMS_PER_LINE_5);
         assertEquals(expectedLines, actualMap);
+
 
     }
 }

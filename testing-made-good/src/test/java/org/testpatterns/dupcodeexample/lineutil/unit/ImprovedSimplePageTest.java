@@ -30,12 +30,14 @@ import static org.junit.Assert.*;
  */
 public class ImprovedSimplePageTest {
 
-    static final String ITEM = "-23456789-";
+    private static final String ITEM = "-23456789-";
+    private static final int LINES_8 = 8;
+    private static final int LINES_4 = 4;
 
     @Test
     public void testPageAssembley_GeneratesAndStoresPageContent() {
 
-        Map<Integer, String> expectedLines = createLineExpectations(ITEM,4);
+        Map<Integer, String> expectedLines = createLineExpectations(ITEM, LINES_4);
 
         SimplePage page = SimplePage.newInstance(ITEM, 20);
         Map<Integer, String> actualMap = page.getMap();
@@ -47,7 +49,7 @@ public class ImprovedSimplePageTest {
     @Test
     public void testPageAssembley_GeneratesPageKeySet() {
 
-        Map<Integer, String> expectedLines = createLineExpectations(ITEM,4);
+        Map<Integer, String> expectedLines = createLineExpectations(ITEM, LINES_4);
 
         SimplePage page = SimplePage.newInstance(ITEM, 20);
         Set<Integer> actualKeySet = page.getKeySet();
@@ -59,18 +61,18 @@ public class ImprovedSimplePageTest {
     @Test
     public void testAppendLines_AddsLinesToEndOfPage() {
 
+        Map<Integer, String> expectedLines = createLineExpectations(ITEM, LINES_8);
+
         SimplePage page = SimplePage.newInstance(ITEM, 20);
-
         page.appendLines(ITEM, 20);
-
         Map<Integer, String> actualMap = page.getMap();
 
-        Map<Integer, String> expectedLines = createLineExpectations(ITEM,8);
         assertEquals(expectedLines, actualMap);
 
     }
 
-    private Map<Integer, String> createLineExpectations(String item, int numLinesToCreate) {
+    private Map<Integer, String> createLineExpectations(String item,
+                                                        int numLinesToCreate) {
         Map<Integer, String> expectedLines = Maps.newHashMap();
 
         StringBuilder sb = new StringBuilder();

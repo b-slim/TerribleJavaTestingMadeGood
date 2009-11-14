@@ -29,9 +29,50 @@ import static org.junit.Assert.*;
  */
 public class LocalFixtureBasedPageTest {
 
-    class DataFixture {
+    private DataFixture dataFixture = new DataFixture();
 
-        final String ITEM = "-23456789-";
+    @Test
+    public void testPageAssembley_GeneratesAndStoresPageContent() {
+
+        Map<Integer, String> expectedLines = dataFixture.createLineExpectations(dataFixture.ITEM, dataFixture.LINES_4);
+
+        SimplePage page = SimplePage.newInstance(dataFixture.ITEM, 20);
+        Map<Integer, String> actualMap = page.getMap();
+
+        assertEquals(expectedLines, actualMap);
+
+    }
+
+    @Test
+    public void testPageAssembley_GeneratesPageKeySet() {
+
+        Map<Integer, String> expectedLines = dataFixture.createLineExpectations(dataFixture.ITEM, dataFixture.LINES_4);
+
+        SimplePage page = SimplePage.newInstance(dataFixture.ITEM, 20);
+        Set<Integer> actualKeySet = page.getKeySet();
+
+        assertEquals(expectedLines.keySet(), actualKeySet);
+
+    }
+
+    @Test
+    public void testAppendLines_AddsLinesToEndOfPage() {
+
+        Map<Integer, String> expectedLines = dataFixture.createLineExpectations(dataFixture.ITEM, dataFixture.LINES_8);
+
+        SimplePage page = SimplePage.newInstance(dataFixture.ITEM, 20);
+        page.appendLines(dataFixture.ITEM, 20);
+        Map<Integer, String> actualMap = page.getMap();
+
+        assertEquals(expectedLines, actualMap);
+
+    }
+
+        private class DataFixture {
+
+        private final String ITEM = "-23456789-";
+        private final int LINES_8 = 8;
+        private final int LINES_4 = 4;
 
         Map<Integer, String> createLineExpectations(String item,
                                                     int numLinesToCreate) {
@@ -46,44 +87,5 @@ public class LocalFixtureBasedPageTest {
 
             return expectedLines;
         }
-    }
-    DataFixture dataFixture = new DataFixture();
-
-    @Test
-    public void testPageAssembley_GeneratesAndStoresPageContent() {
-
-        Map<Integer, String> expectedLines = dataFixture.createLineExpectations(dataFixture.ITEM, 4);
-
-        SimplePage page = SimplePage.newInstance(dataFixture.ITEM, 20);
-        Map<Integer, String> actualMap = page.getMap();
-
-        assertEquals(expectedLines, actualMap);
-
-    }
-
-    @Test
-    public void testPageAssembley_GeneratesPageKeySet() {
-
-        Map<Integer, String> expectedLines = dataFixture.createLineExpectations(dataFixture.ITEM, 4);
-
-        SimplePage page = SimplePage.newInstance(dataFixture.ITEM, 20);
-        Set<Integer> actualKeySet = page.getKeySet();
-
-        assertEquals(expectedLines.keySet(), actualKeySet);
-
-    }
-
-    @Test
-    public void testAppendLines_AddsLinesToEndOfPage() {
-
-        SimplePage page = SimplePage.newInstance(dataFixture.ITEM, 20);
-
-        page.appendLines(dataFixture.ITEM, 20);
-
-        Map<Integer, String> actualMap = page.getMap();
-
-        Map<Integer, String> expectedLines = dataFixture.createLineExpectations(dataFixture.ITEM, 8);
-        assertEquals(expectedLines, actualMap);
-
     }
 }
