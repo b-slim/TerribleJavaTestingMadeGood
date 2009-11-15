@@ -10,7 +10,7 @@
     <description>This site began life as an example of how to refactor a terrible cut and paste
     test to better patterns.  Its become a project to collect examples of bad tests
     refactored to good tests.</description>
-    <url>http://martinaharris.com/2009/11/evil-cut-paste-testing/</url>
+    <url>http://martinaharris.com/2009/11/anti-patterns-testing/</url>
 
     <developers>
         <developer>
