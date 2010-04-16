@@ -142,7 +142,6 @@
             <version>${org.springframework.version}</version>
         </dependency>
 
-
         <!--
     Support for testing Spring applications with tools such as JUnit and TestNG
     This artifact is generally always defined with a 'test' scope for the integration testing framework and unit testing stubs
@@ -153,14 +152,13 @@
             <version>${org.springframework.version}</version>
             <scope>test</scope>
         </dependency>
-        
-
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.5</version>
         </dependency>
+
         <dependency>
             <groupId>com.google.collections</groupId>
             <artifactId>google-collections</artifactId>
