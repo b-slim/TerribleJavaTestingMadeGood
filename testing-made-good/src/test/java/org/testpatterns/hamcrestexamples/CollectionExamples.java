@@ -18,6 +18,7 @@
 package org.testpatterns.hamcrestexamples;
 
 import java.util.Arrays;
+import java.util.List;
 import org.junit.Test;
 import static org.hamcrest.collection.IsArrayContaining.hasItemInArray;
 import static org.junit.matchers.JUnitMatchers.*;
@@ -34,6 +35,7 @@ public class CollectionExamples {
 
     //Hamcrest with Collections and Arrays:
     static final String[] array = { "A", "B", "C" };
+    static final List<String> list = Arrays.asList(array);
 
     @Test
     public void oneThingInArray () {
@@ -43,17 +45,17 @@ public class CollectionExamples {
     @Test
     public void arrayOfItemsInList () {
         String[] expected = { "A", "B", "C" };
-        assertThat(Arrays.asList(array), hasItems(expected));
+        assertThat(list, hasItems(expected));
     }
 
     @Test
     public void itemInAList () {
-        assertThat(Arrays.asList(array), hasItem("A"));
+        assertThat(list, hasItem("A"));
     }
 
     @Test
     public void itemsInAList () {
-        assertThat(Arrays.asList(array), hasItems("A", "C"));
+        assertThat(list, hasItems("A", "C"));
     }
 
 }
