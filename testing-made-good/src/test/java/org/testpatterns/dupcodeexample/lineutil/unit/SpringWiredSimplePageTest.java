@@ -27,7 +27,8 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.testpatterns.dupcodeexample.fixture.PageDataFixture;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 /**
  * Test the SimplePage object.
@@ -43,7 +44,7 @@ public class SpringWiredSimplePageTest {
     private static final int NUMBER_LINES_ON_PAGE_4 = 4;
     private static final int NUMBER_LINES_ON_PAGE_8 = 8;
     private static final int NUMBER_DATA_ITEMS_IN_LINE_5 = 5;
-
+    
     @Autowired
     private PageDataFixture dataFixture;
 
@@ -55,7 +56,7 @@ public class SpringWiredSimplePageTest {
         SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
         Map<Integer, String> actualMap = page.getMap();
 
-        assertEquals(expectedLines, actualMap);
+        assertThat(actualMap, is(expectedLines));
 
     }
 
@@ -67,7 +68,7 @@ public class SpringWiredSimplePageTest {
         SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
         Set<Integer> actualKeySet = page.getKeySet();
 
-        assertEquals(expectedLines.keySet(), actualKeySet);
+        assertThat(actualKeySet, is(expectedLines.keySet()));
 
     }
 
@@ -77,11 +78,19 @@ public class SpringWiredSimplePageTest {
         Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_ON_PAGE_8, NUMBER_DATA_ITEMS_IN_LINE_5);
 
         SimplePage page = SimplePage.newInstance(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
-        page.appendLines(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
+        page.appendItems(dataFixture.getDataItem(), NUMBER_OF_ITEMS_ON_PAGE_20);
         Map<Integer, String> actualMap = page.getMap();
 
-        assertEquals(expectedLines, actualMap);
+        assertThat(actualMap, is(expectedLines));
 
+        String item = dataFixture.getDataItem();
+        String expectedLastLine = item;
+
+        page.appendItems(item, 1);
+        actualMap = page.getMap();
+        String lastLine = dataFixture.getLastMapValue(actualMap);
+        assertThat(actualMap.size(), is(9));
+        assertThat(lastLine, is(expectedLastLine));
 
     }
 }

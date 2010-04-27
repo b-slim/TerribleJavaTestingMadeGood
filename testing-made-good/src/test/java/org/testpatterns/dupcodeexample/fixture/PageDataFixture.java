@@ -18,6 +18,8 @@ package org.testpatterns.dupcodeexample.fixture;
 
 import com.google.common.collect.Maps;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import org.springframework.stereotype.Component;
 
 /**
@@ -27,7 +29,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PageDataFixture {
 
-    final String dataItem = "-23456789-";
+    private final String DATAITEM = "-23456789-";
 
     /**
      * Create a map representing a page expectation for a SimplePage.
@@ -39,7 +41,7 @@ public class PageDataFixture {
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < numDataItemsPerLine; i++) {
-            sb.append(dataItem);
+            sb.append(DATAITEM);
         }
 
         String line = sb.toString();
@@ -51,7 +53,16 @@ public class PageDataFixture {
     }
 
     public String getDataItem() {
-        return dataItem;
+        return DATAITEM;
+    }
+
+    public String getLastMapValue(Map<Integer, String> map) {
+        Set<Entry<Integer, String>> entrySet = map.entrySet();
+        String line = null;
+        for (Entry<Integer, String> entry : entrySet) {
+            line = entry.getValue();
+        }
+        return line;
     }
 }
 

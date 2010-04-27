@@ -16,12 +16,15 @@
  */
 package org.testpatterns.dupcodeexample.lineutil.unit;
 
-import com.google.common.collect.Maps;
 import org.testpatterns.dupcodeexample.lineutil.SimplePage;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.hamcrest.core.Is.is;
+import static com.google.common.collect.Maps.newHashMap;
+import static org.junit.Assert.assertThat;
 
 /**
  * Test the SimplePage object.
@@ -42,7 +45,7 @@ public class ImprovedSimplePageTest {
         SimplePage page = SimplePage.newInstance(ITEM, 20);
         Map<Integer, String> actualMap = page.getMap();
 
-        assertEquals(expectedLines, actualMap);
+        assertThat(actualMap, is(expectedLines));
 
     }
 
@@ -54,7 +57,7 @@ public class ImprovedSimplePageTest {
         SimplePage page = SimplePage.newInstance(ITEM, 20);
         Set<Integer> actualKeySet = page.getKeySet();
 
-        assertEquals(expectedLines.keySet(), actualKeySet);
+        assertThat(actualKeySet, is(expectedLines.keySet()));
 
     }
 
@@ -64,16 +67,33 @@ public class ImprovedSimplePageTest {
         Map<Integer, String> expectedLines = createLineExpectations(ITEM, LINES_8);
 
         SimplePage page = SimplePage.newInstance(ITEM, 20);
-        page.appendLines(ITEM, 20);
+        page.appendItems(ITEM, 19);
+
         Map<Integer, String> actualMap = page.getMap();
+        assertThat(actualMap.size(), is(8));
 
-        assertEquals(expectedLines, actualMap);
+        String expectedLastLine = ITEM;
 
+        page.appendItems(ITEM, 1);
+        actualMap = page.getMap();
+        String lastLine = getLastLine(actualMap);
+        assertThat(actualMap.size(), is(9));
+        assertThat(lastLine, is(expectedLastLine));
+
+    }
+
+    private String getLastLine(Map<Integer, String> expectedLines) {
+        Set<Entry<Integer, String>> entrySet = expectedLines.entrySet();
+        String line = null;
+        for (Entry<Integer, String> entry : entrySet) {
+            line = entry.getValue();
+        }
+        return line;
     }
 
     private Map<Integer, String> createLineExpectations(String item,
                                                         int numLinesToCreate) {
-        Map<Integer, String> expectedLines = Maps.newHashMap();
+        Map<Integer, String> expectedLines = newHashMap();
 
         StringBuilder sb = new StringBuilder();
         sb.append(item).append(item).append(item).append(item).append(item);

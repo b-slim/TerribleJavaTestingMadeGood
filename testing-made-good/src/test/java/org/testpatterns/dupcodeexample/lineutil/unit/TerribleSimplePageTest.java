@@ -84,7 +84,7 @@ public class TerribleSimplePageTest {
         additionalLines.put(3, item + item + item + item + item);
         additionalLines.put(4, item + item + item + item + item);
         
-        page.appendLines(item, 20);
+        page.appendItems(item, 20);
 
         Map<Integer, String> actualMap = page.getMap();
 

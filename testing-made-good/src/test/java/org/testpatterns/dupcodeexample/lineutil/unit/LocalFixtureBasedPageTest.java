@@ -16,12 +16,15 @@
  */
 package org.testpatterns.dupcodeexample.lineutil.unit;
 
-import com.google.common.collect.Maps;
 import org.testpatterns.dupcodeexample.lineutil.SimplePage;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static com.google.common.collect.Maps.newHashMap;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 /**
  *
@@ -39,7 +42,7 @@ public class LocalFixtureBasedPageTest {
         SimplePage page = SimplePage.newInstance(dataFixture.ITEM, 20);
         Map<Integer, String> actualMap = page.getMap();
 
-        assertEquals(expectedLines, actualMap);
+        assertThat(actualMap, is(expectedLines));
 
     }
 
@@ -51,24 +54,33 @@ public class LocalFixtureBasedPageTest {
         SimplePage page = SimplePage.newInstance(dataFixture.ITEM, 20);
         Set<Integer> actualKeySet = page.getKeySet();
 
-        assertEquals(expectedLines.keySet(), actualKeySet);
+        assertThat(actualKeySet, is(expectedLines.keySet()));
 
     }
 
     @Test
     public void testAppendLines_AddsLinesToEndOfPage() {
 
-        Map<Integer, String> expectedLines = dataFixture.createLineExpectations(dataFixture.ITEM, dataFixture.LINES_8);
+        String item = dataFixture.ITEM;
+        Map<Integer, String> expectedLines = dataFixture.createLineExpectations(item, dataFixture.LINES_8);
 
-        SimplePage page = SimplePage.newInstance(dataFixture.ITEM, 20);
-        page.appendLines(dataFixture.ITEM, 20);
+        SimplePage page = SimplePage.newInstance(item, 20);
+        page.appendItems(item, 20);
         Map<Integer, String> actualMap = page.getMap();
 
-        assertEquals(expectedLines, actualMap);
+        assertThat(actualMap, is((expectedLines)));
+
+        String expectedLastLine = item;
+
+        page.appendItems(item, 1);
+        actualMap = page.getMap();
+        String lastLine = dataFixture.getLastMapValue(actualMap);
+        assertThat(actualMap.size(), is(9));
+        assertThat(lastLine, is(expectedLastLine));
 
     }
 
-        private class DataFixture {
+    private class DataFixture {
 
         private final String ITEM = "-23456789-";
         private final int LINES_8 = 8;
@@ -76,7 +88,7 @@ public class LocalFixtureBasedPageTest {
 
         Map<Integer, String> createLineExpectations(String item,
                                                     int numLinesToCreate) {
-            Map<Integer, String> expectedLines = Maps.newHashMap();
+            Map<Integer, String> expectedLines = newHashMap();
 
             StringBuilder sb = new StringBuilder();
             sb.append(item).append(item).append(item).append(item).append(item);
@@ -86,6 +98,15 @@ public class LocalFixtureBasedPageTest {
             }
 
             return expectedLines;
+        }
+
+        String getLastMapValue(Map<Integer, String> map) {
+            Set<Entry<Integer, String>> entrySet = map.entrySet();
+            String line = null;
+            for (Entry<Integer, String> entry : entrySet) {
+                line = entry.getValue();
+            }
+            return line;
         }
     }
 }

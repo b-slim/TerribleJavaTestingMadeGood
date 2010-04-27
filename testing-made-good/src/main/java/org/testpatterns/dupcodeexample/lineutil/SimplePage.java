@@ -9,13 +9,13 @@ import java.util.Set;
  * A simple page object for demonstrating some testing.
  * Once the page has been created, its possible to fetch maps with getMap()
  * or the keys, getKeySet() from the backing object.
- * In addition its possible to appendLines() to the page.
+ * In addition its possible to appendItems() to the page.
  *
  * @author martinh
  */
 public class SimplePage {
 
-    public final static int MINIMUM_PAGE_WIDTH = 42;
+    public final static int MINIMUM_PAGE_WIDTH = 40;
     private ImmutableMap<Integer, String> simplePage;
 
     private SimplePage() {
@@ -32,7 +32,7 @@ public class SimplePage {
      * leave the word intact and fill past the line to the end of the word.
      *
      * @param item The item used for page content.
-     * @param numItems The number of items to use required.
+     * @param numItems The number of items to generate.
      * @return The formatted page.
      */
     public static SimplePage newInstance(String item, int numItems) {
@@ -48,15 +48,15 @@ public class SimplePage {
     }
 
     /**
-     * Add lines to the end of the map.
+     * Add items to the end of the map.
      * 
      * @param item The item used for page content.
      * @param numItems The number of items appended.
      */
-    public void appendLines(String item, int numItems) {
+    public void appendItems(String item, int numItems) {
         ImmutableMap.Builder<Integer, String> immutableMapBuilder = ImmutableMap.builder();
         final int numberOfLinesCreated = addExistingBackingStoreToBuilder(immutableMapBuilder);
-        
+
         addItemsStartAtIndex(numItems, item, numberOfLinesCreated, immutableMapBuilder);
         this.simplePage = immutableMapBuilder.build();
     }
@@ -64,7 +64,9 @@ public class SimplePage {
     private void addItemsToBuilderFromStartIndex(int numItems,
                                                  String item,
                                                  Builder<Integer, String> immutableMapBuilder,
-                                                 int lineNumber) {
+                                                 int startLineNumber) {
+        int lineNumber = startLineNumber;
+
         StringBuilder sb = new StringBuilder(maxLineWidth(item));
 
         for (int i = 0; i < numItems; i++) {
@@ -73,6 +75,9 @@ public class SimplePage {
                 immutableMapBuilder.put(++lineNumber, sb.toString());
                 sb.delete(0, sb.length());
             }
+        }
+        if (sb.toString().length() > 0) {
+            immutableMapBuilder.put(++lineNumber, sb.toString());
         }
     }
 
