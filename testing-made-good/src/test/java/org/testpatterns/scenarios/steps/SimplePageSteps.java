@@ -36,6 +36,7 @@ public class SimplePageSteps extends Steps {
 		Map<Integer, String> actualMap = page.getMap();
 
 		ensureThat(actualMap, is(expectedLines));
+
 	}
 
 }

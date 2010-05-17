@@ -21,4 +21,5 @@ public class SimplePageScenario extends JUnitScenario {
 
 		addSteps(new SimplePageSteps());
 	}
+
 }

@@ -8,11 +8,10 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>testing-made-good</name>
 	<description>This site began life as an example of how to refactor a
-		terrible cut and paste
-		test to better patterns. Its become a project to
-		collect examples of bad
-		tests
-		refactored to good tests.</description>
+		terrible cut and paste test to better patterns. Its become a project
+		to collect examples of bad
+		tests refactored to good tests.
+	</description>
 	<url>http://martinaharris.com/2009/11/anti-patterns-testing/</url>
 
 	<developers>
@@ -37,6 +36,20 @@
 	</licenses>
 
 	<build>
+		<directory>target</directory>
+		<outputDirectory>target/classes</outputDirectory>
+		<finalName>${artifactId}-${version}</finalName>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -86,6 +99,32 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.testOutputDirectory}/org/testpatterns/scenarios/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/test/java/org/testpatterns/scenarios</directory>
+									<includes>
+										<include>**/*.scn </include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
 			<plugin>
 				<groupId>org.jbehave</groupId>
 				<artifactId>jbehave-maven-plugin</artifactId>
@@ -103,38 +142,12 @@
 							</scenarioExcludes>
 							<classLoaderInjected>false</classLoaderInjected>
 							<skip>false</skip>
-							<ignoreFailure>true</ignoreFailure>
-							<batch>true</batch>
+							<ignoreFailure>false</ignoreFailure>
+							<batch>false</batch>
 							<scope>test</scope>
 						</configuration>
 						<goals>
 							<goal>run-scenarios</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>render-reports</id>
-						<phase>integration-test</phase>
-						<configuration>
-							<outputDirectory>${basedir}/target/jbehave-reports
-							</outputDirectory>
-							<formats>
-								<format>txt</format>
-								<format>html</format>
-								<format>xml</format>
-							</formats>
-							<templateProperties>
-								<property>
-									<name>defaultFormats</name>
-									<value>stats</value>
-								</property>
-								<property>
-									<name>renderedDirectory</name>
-									<value>rendered</value>
-								</property>
-							</templateProperties>
-						</configuration>
-						<goals>
-							<goal>render-reports</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -145,7 +158,8 @@
 
 	<!-- Shared version number properties -->
 	<properties>
-		<org.springframework.version>3.0.0.RELEASE</org.springframework.version>
+		<org.springframework.version>3.0.0.RELEASE
+		</org.springframework.version>
 		<org.jbehave.version>2.5-rc1</org.jbehave.version>
 	</properties>
 
