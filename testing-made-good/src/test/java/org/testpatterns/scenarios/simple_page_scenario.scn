@@ -1,0 +1,3 @@
+Given a data fixture
+When a page is created with 20 items on a page
+Then expected lines on a page is 4 with data items in a line 5

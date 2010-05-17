@@ -1,225 +1,305 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.tek-design</groupId>
-    <artifactId>testing-made-good</artifactId>
-    <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <name>testing-made-good</name>
-    <description>This site began life as an example of how to refactor a terrible cut and paste
-        test to better patterns.  Its become a project to collect examples of bad tests
-    refactored to good tests.</description>
-    <url>http://martinaharris.com/2009/11/anti-patterns-testing/</url>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.tek-design</groupId>
+	<artifactId>testing-made-good</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>testing-made-good</name>
+	<description>This site began life as an example of how to refactor a
+		terrible cut and paste
+		test to better patterns. Its become a project to
+		collect examples of bad
+		tests
+		refactored to good tests.</description>
+	<url>http://martinaharris.com/2009/11/anti-patterns-testing/</url>
 
-    <developers>
-        <developer>
-            <id>martinh</id>
-            <name>Martin Harris</name>
-            <email>martinhport-q@yahoo.com</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <organization>tek-design.com</organization>
-            <timezone>-0</timezone>
-        </developer>
-    </developers>
+	<developers>
+		<developer>
+			<id>martinh</id>
+			<name>Martin Harris</name>
+			<email>martinhport-q@yahoo.com</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<organization>tek-design.com</organization>
+			<timezone>-0</timezone>
+		</developer>
+	</developers>
 
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <forkMode>always</forkMode>
-                    <argLine>-enableassertions</argLine>
-                </configuration>
-            </plugin>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<forkMode>always</forkMode>
+					<argLine>-enableassertions</argLine>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-            </plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <configuration>
-                    <instrumentation>
-                        <ignores>
-                            <!-- <ignore>com.example.boringcode.*</ignore> -->
-                        </ignores>
-                        <excludes>
-                            <!-- <exclude>com/example/dullcode/**/*.class</exclude> -->
-                            <!-- <exclude>com/example/**/*Test.class</exclude> -->
-                        </excludes>
-                    </instrumentation>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<configuration>
+					<instrumentation>
+						<ignores>
+							<!-- <ignore>com.example.boringcode.*</ignore> -->
+						</ignores>
+						<excludes>
+							<!-- <exclude>com/example/dullcode/**/*.class</exclude> -->
+							<!-- <exclude>com/example/**/*Test.class</exclude> -->
+						</excludes>
+					</instrumentation>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jbehave</groupId>
+				<artifactId>jbehave-maven-plugin</artifactId>
+				<version>${org.jbehave.version}</version>
+				<executions>
+					<execution>
+						<id>run-scenarios-found</id>
+						<phase>integration-test</phase>
+						<configuration>
+							<scenarioIncludes>
+								<scenarioInclude>**/scenarios/*.java</scenarioInclude>
+							</scenarioIncludes>
+							<scenarioExcludes>
+								<scenarioExclude>**/*Steps.java</scenarioExclude>
+							</scenarioExcludes>
+							<classLoaderInjected>false</classLoaderInjected>
+							<skip>false</skip>
+							<ignoreFailure>true</ignoreFailure>
+							<batch>true</batch>
+							<scope>test</scope>
+						</configuration>
+						<goals>
+							<goal>run-scenarios</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>render-reports</id>
+						<phase>integration-test</phase>
+						<configuration>
+							<outputDirectory>${basedir}/target/jbehave-reports
+							</outputDirectory>
+							<formats>
+								<format>txt</format>
+								<format>html</format>
+								<format>xml</format>
+							</formats>
+							<templateProperties>
+								<property>
+									<name>defaultFormats</name>
+									<value>stats</value>
+								</property>
+								<property>
+									<name>renderedDirectory</name>
+									<value>rendered</value>
+								</property>
+							</templateProperties>
+						</configuration>
+						<goals>
+							<goal>render-reports</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-        </plugins>
-    </build>
+		</plugins>
+	</build>
 
-    <!-- Shared version number properties -->
-    <properties>
-        <org.springframework.version>3.0.0.RELEASE</org.springframework.version>
-    </properties>
+	<!-- Shared version number properties -->
+	<properties>
+		<org.springframework.version>3.0.0.RELEASE</org.springframework.version>
+		<org.jbehave.version>2.5-rc1</org.jbehave.version>
+	</properties>
 
-    <dependencies>
-        <!--
-    Core utilities used by other modules.
-    Define this if you use Spring Utility APIs (org.springframework.core.*/org.springframework.util.*)
-        -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
+	<dependencies>
+		<!--
+			Core utilities used by other modules. Define this if you use Spring
+			Utility APIs (org.springframework.core.*/org.springframework.util.*)
+		-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
 
-        <!--
-    Expression Language (depends on spring-core)
-    Define this if you use Spring Expression APIs (org.springframework.expression.*)
-        -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-expression</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
+		<!--
+			Expression Language (depends on spring-core) Define this if you use
+			Spring Expression APIs (org.springframework.expression.*)
+		-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<!--
+			Bean Factory and JavaBeans utilities (depends on spring-core) Define
+			this if you use Spring Bean APIs (org.springframework.beans.*)
+		-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
 
-        <!--
-    Bean Factory and JavaBeans utilities (depends on spring-core)
-    Define this if you use Spring Bean APIs (org.springframework.beans.*)
-        -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
+		<!--
+			Aspect Oriented Programming (AOP) Framework (depends on spring-core,
+			spring-beans) Define this if you use Spring AOP APIs
+			(org.springframework.aop.*)
+		-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
 
-        <!--
-    Aspect Oriented Programming (AOP) Framework (depends on spring-core, spring-beans)
-    Define this if you use Spring AOP APIs (org.springframework.aop.*)
-        -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
+		<!--
+			Application Context (depends on spring-core, spring-expression,
+			spring-aop, spring-beans) This is the central artifact for Spring's
+			Dependency Injection Container and is generally always defined
+		-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
 
-        <!--
-    Application Context (depends on spring-core, spring-expression, spring-aop, spring-beans)
-    This is the central artifact for Spring's Dependency Injection Container and is generally always defined
-        -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
+		<!--
+			Support for testing Spring applications with tools such as JUnit and
+			TestNG This artifact is generally always defined with a 'test' scope
+			for the integration testing framework and unit testing stubs
+		-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>test</scope>
+		</dependency>
 
-        <!--
-    Support for testing Spring applications with tools such as JUnit and TestNG
-    This artifact is generally always defined with a 'test' scope for the integration testing framework and unit testing stubs
-        -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${org.springframework.version}</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+		</dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.1</version>
-        </dependency>
+		<dependency>
+			<groupId>com.google.collections</groupId>
+			<artifactId>google-collections</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+		</dependency>
 
-        <dependency>
-            <groupId>com.google.collections</groupId>
-            <artifactId>google-collections</artifactId>
-            <version>1.0-rc4</version>
-            <type>jar</type>
-        </dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.1</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>1.0</version>
-        </dependency>
-    </dependencies>
-    <reporting>
-        <plugins>
+		<dependency>
+			<groupId>org.jbehave</groupId>
+			<artifactId>jbehave-core</artifactId>
+			<version>${org.jbehave.version}</version>
+		</dependency>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <links>
-                        <link>http://java.sun.com/javase/6/docs/api/</link>
-                        <link>http://google-collections.googlecode.com/svn/trunk/javadoc/</link>
-                    </links>
-                    <maxmemory>256m</maxmemory>
-                    <aggregate>true</aggregate>
-                </configuration>
-            </plugin>
+		<dependency>
+			<groupId>org.jbehave</groupId>
+			<artifactId>jbehave-ant</artifactId>
+			<version>${org.jbehave.version}</version>
+		</dependency>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <configuration>
-                    <showSuccess>false</showSuccess>
-                </configuration>
-            </plugin>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <configuration>
-                    <formats>
-                        <format>html</format>
-                    </formats>
-                </configuration>
-            </plugin>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.8</version>
+		</dependency>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>taglist-maven-plugin</artifactId>
-                <configuration>
-                    <aggregate>true</aggregate>
-                    <tags>
-                        <tag>TODO</tag>
-                    </tags>
-                </configuration>
-            </plugin>
+	</dependencies>
+	<reporting>
+		<plugins>
 
-        </plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<links>
+						<link>http://java.sun.com/javase/6/docs/api/</link>
+						<link>http://google-collections.googlecode.com/svn/trunk/javadoc/
+						</link>
+					</links>
+					<maxmemory>256m</maxmemory>
+					<aggregate>true</aggregate>
+				</configuration>
+			</plugin>
 
-    </reporting>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<configuration>
+					<showSuccess>false</showSuccess>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<configuration>
+					<formats>
+						<format>html</format>
+					</formats>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+				<configuration>
+					<aggregate>true</aggregate>
+					<tags>
+						<tag>TODO</tag>
+					</tags>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</reporting>
 
 </project>
 
