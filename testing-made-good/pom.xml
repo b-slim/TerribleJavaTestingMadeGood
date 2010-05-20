@@ -156,11 +156,15 @@
 		</plugins>
 	</build>
 
-	<!-- Shared version number properties -->
+	<!-- Version number properties -->
 	<properties>
-		<org.springframework.version>3.0.0.RELEASE
-		</org.springframework.version>
+		<org.springframework.version>3.0.0.RELEASE</org.springframework.version>
+		<org.junit.version>4.8.1</org.junit.version>
 		<org.jbehave.version>2.5-rc1</org.jbehave.version>
+		<tumbler.version>0.2.1</tumbler.version>
+		<com.google.collections.version>1.0</com.google.collections.version>
+		<org.hamcrest.version>1.1</org.hamcrest.version>
+		<org.apache.log4j.version>1.2.8</org.apache.log4j.version>
 	</properties>
 
 	<dependencies>
@@ -230,20 +234,20 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>${org.junit.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.collections</groupId>
 			<artifactId>google-collections</artifactId>
-			<version>1.0</version>
+			<version>${com.google.collections.version}</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-all</artifactId>
-			<version>1.1</version>
+			<version>${org.hamcrest.version}</version>
 		</dependency>
 
 		<dependency>
@@ -258,11 +262,16 @@
 			<version>${org.jbehave.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>pl.pragmatists.tumbler</groupId>
+			<artifactId>tumbler</artifactId>
+			<version>${tumbler.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.8</version>
+			<version>${org.apache.log4j.version}</version>
 		</dependency>
 
 	</dependencies>
