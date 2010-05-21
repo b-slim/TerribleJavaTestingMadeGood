@@ -110,10 +110,10 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.testOutputDirectory}/org/testpatterns/scenarios/</outputDirectory>
+							<outputDirectory>${project.build.testOutputDirectory}/org/testpatterns/jbehave/scenarios/</outputDirectory>
 							<resources>
 								<resource>
-									<directory>src/test/java/org/testpatterns/scenarios</directory>
+									<directory>src/test/java/org/testpatterns/jbehave/scenarios</directory>
 									<includes>
 										<include>**/*.scn </include>
 									</includes>

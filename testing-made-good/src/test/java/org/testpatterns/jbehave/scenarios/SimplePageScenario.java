@@ -1,4 +1,4 @@
-package org.testpatterns.scenarios;
+package org.testpatterns.jbehave.scenarios;
 
 import org.jbehave.scenario.JUnitScenario;
 import org.jbehave.scenario.MostUsefulConfiguration;
@@ -6,7 +6,7 @@ import org.jbehave.scenario.parser.ClasspathScenarioDefiner;
 import org.jbehave.scenario.parser.PatternScenarioParser;
 import org.jbehave.scenario.parser.ScenarioDefiner;
 import org.jbehave.scenario.parser.UnderscoredCamelCaseResolver;
-import org.testpatterns.scenarios.steps.SimplePageSteps;
+import org.testpatterns.jbehave.scenarios.steps.SimplePageSteps;
 
 public class SimplePageScenario extends JUnitScenario {
 

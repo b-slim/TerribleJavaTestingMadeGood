@@ -1,4 +1,4 @@
-package org.testpatterns.scenarios.steps;
+package org.testpatterns.jbehave.scenarios.steps;
 
 import static org.hamcrest.Matchers.is;
 import static org.jbehave.Ensure.ensureThat;
