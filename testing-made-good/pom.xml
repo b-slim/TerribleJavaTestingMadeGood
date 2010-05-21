@@ -110,10 +110,12 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.testOutputDirectory}/org/testpatterns/jbehave/scenarios/</outputDirectory>
+							<outputDirectory>${project.build.testOutputDirectory}/org/testpatterns/jbehave/scenarios/
+							</outputDirectory>
 							<resources>
 								<resource>
-									<directory>src/test/java/org/testpatterns/jbehave/scenarios</directory>
+									<directory>src/test/java/org/testpatterns/jbehave/scenarios
+									</directory>
 									<includes>
 										<include>**/*.scn </include>
 									</includes>
@@ -158,14 +160,17 @@
 
 	<!-- Version number properties -->
 	<properties>
-		<org.springframework.version>3.0.0.RELEASE</org.springframework.version>
+		<org.springframework.version>3.0.0.RELEASE
+		</org.springframework.version>
 		<org.junit.version>4.8.1</org.junit.version>
 		<org.jbehave.version>2.5-rc1</org.jbehave.version>
 		<tumbler.version>0.2.1</tumbler.version>
 		<com.google.collections.version>1.0</com.google.collections.version>
 		<org.hamcrest.version>1.1</org.hamcrest.version>
 		<org.apache.log4j.version>1.2.8</org.apache.log4j.version>
+		<org.freemarker.version>2.3.8</org.freemarker.version>
 	</properties>
+
 
 	<dependencies>
 		<!--
@@ -273,6 +278,13 @@
 			<artifactId>log4j</artifactId>
 			<version>${org.apache.log4j.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${org.freemarker.version}</version>
+		</dependency>
+
 
 	</dependencies>
 	<reporting>

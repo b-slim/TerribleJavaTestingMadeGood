@@ -1,0 +1,6 @@
+Story: Building a simple page
+ 
+Scenario: should create a page 4 lines long with 5 data items in each line
+Given a data fixture capable of complex page checking
+When a page is created with 'twenty' items on a page
+Then there should be 'four' lines on a page with 'five' data items on each line 
