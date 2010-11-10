@@ -38,7 +38,7 @@ public class ImprovedSimplePageTest {
 	private static final int LINES_4 = 4;
 
 	@Test
-	public void testPageAssembley_GeneratesAndStoresPageContent() {
+	public void pageAssembley_GeneratesAndStoresPageContent() {
 
 		Map<Integer, String> expectedLines = createLineExpectations(ITEM, LINES_4);
 
@@ -50,7 +50,7 @@ public class ImprovedSimplePageTest {
 	}
 
 	@Test
-	public void testPageAssembley_GeneratesPageKeySet() {
+	public void pageAssembley_GeneratesPageKeySet() {
 
 		Map<Integer, String> expectedLines = createLineExpectations(ITEM, LINES_4);
 
@@ -62,7 +62,7 @@ public class ImprovedSimplePageTest {
 	}
 
 	@Test
-	public void testAppendLines_AddsLinesToEndOfPage() {
+	public void appendLines_AddsLinesToEndOfPage() {
 
 		SimplePage page = SimplePage.newInstance(ITEM, 20);
 		page.appendItems(ITEM, 19);

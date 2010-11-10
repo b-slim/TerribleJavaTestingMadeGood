@@ -35,7 +35,7 @@ public class LocalFixtureBasedPageTest {
     private DataFixture dataFixture = new DataFixture();
 
     @Test
-    public void testPageAssembley_GeneratesAndStoresPageContent() {
+    public void pageAssembley_GeneratesAndStoresPageContent() {
 
         Map<Integer, String> expectedLines = dataFixture.createLineExpectations(dataFixture.ITEM, dataFixture.LINES_4);
 
@@ -47,7 +47,7 @@ public class LocalFixtureBasedPageTest {
     }
 
     @Test
-    public void testPageAssembley_GeneratesPageKeySet() {
+    public void pageAssembley_GeneratesPageKeySet() {
 
         Map<Integer, String> expectedLines = dataFixture.createLineExpectations(dataFixture.ITEM, dataFixture.LINES_4);
 
@@ -59,7 +59,7 @@ public class LocalFixtureBasedPageTest {
     }
 
     @Test
-    public void testAppendLines_AddsLinesToEndOfPage() {
+    public void appendLines_AddsLinesToEndOfPage() {
 
         String item = dataFixture.ITEM;
         Map<Integer, String> expectedLines = dataFixture.createLineExpectations(item, dataFixture.LINES_8);

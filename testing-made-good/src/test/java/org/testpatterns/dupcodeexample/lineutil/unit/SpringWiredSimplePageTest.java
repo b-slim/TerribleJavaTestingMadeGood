@@ -49,7 +49,7 @@ public class SpringWiredSimplePageTest {
     private PageDataFixture dataFixture;
 
     @Test
-    public void testPageAssembley_GeneratesAndStoresPageContent() {
+    public void pageAssembley_GeneratesAndStoresPageContent() {
 
         Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_ON_PAGE_4, NUMBER_DATA_ITEMS_IN_LINE_5);
 
@@ -61,7 +61,7 @@ public class SpringWiredSimplePageTest {
     }
 
     @Test
-    public void testPageAssembley_GeneratesPageKeySet() {
+    public void pageAssembley_GeneratesPageKeySet() {
 
         Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_ON_PAGE_4, NUMBER_DATA_ITEMS_IN_LINE_5);
 
@@ -73,7 +73,7 @@ public class SpringWiredSimplePageTest {
     }
 
     @Test
-    public void testAppendLines_AddsLinesToEndOfPage() {
+    public void appendLines_AddsLinesToEndOfPage() {
 
         Map<Integer, String> expectedLines = dataFixture.createPageExpectation(NUMBER_LINES_ON_PAGE_8, NUMBER_DATA_ITEMS_IN_LINE_5);
 
